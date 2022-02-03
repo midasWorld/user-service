@@ -1,6 +1,6 @@
 package com.midas.userservice.service;
 
-import com.midas.userservice.domain.UserRepository;
+import com.midas.userservice.domain.users.UserRepository;
 import com.midas.userservice.web.dto.UserSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

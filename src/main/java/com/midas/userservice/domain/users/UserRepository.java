@@ -1,4 +1,4 @@
-package com.midas.userservice.domain;
+package com.midas.userservice.domain.users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

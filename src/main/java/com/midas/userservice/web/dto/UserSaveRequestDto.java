@@ -1,6 +1,6 @@
 package com.midas.userservice.web.dto;
 
-import com.midas.userservice.domain.UserEntity;
+import com.midas.userservice.domain.users.UserEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

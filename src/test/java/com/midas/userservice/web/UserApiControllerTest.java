@@ -1,7 +1,7 @@
 package com.midas.userservice.web;
 
-import com.midas.userservice.domain.UserEntity;
-import com.midas.userservice.domain.UserRepository;
+import com.midas.userservice.domain.users.UserEntity;
+import com.midas.userservice.domain.users.UserRepository;
 import com.midas.userservice.web.dto.UserSaveRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ class UserApiControllerTest {
         // when
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
 
-        // then
+        // then료
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
         UserEntity findOne = userRepository.findByEmail(email);

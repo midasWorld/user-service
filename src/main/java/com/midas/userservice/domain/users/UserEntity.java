@@ -1,5 +1,6 @@
-package com.midas.userservice.domain;
+package com.midas.userservice.domain.users;
 
+import com.midas.userservice.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,8 +9,8 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
-@Entity
-public class UserEntity {
+@Entity(name = "users")
+public class UserEntity extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
