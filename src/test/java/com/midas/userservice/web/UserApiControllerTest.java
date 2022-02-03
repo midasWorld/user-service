@@ -3,6 +3,7 @@ package com.midas.userservice.web;
 import com.midas.userservice.domain.users.UserEntity;
 import com.midas.userservice.domain.users.UserRepository;
 import com.midas.userservice.web.dto.UserSaveRequestDto;
+import com.midas.userservice.web.dto.UserUpdateRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,11 +39,45 @@ class UserApiControllerTest {
         // when
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
 
-        // then료
+        // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
         UserEntity findOne = userRepository.findByEmail(email);
         assertThat(findOne.getName()).isEqualTo(name);
         assertThat(findOne.getPassword()).isEqualTo(password);
+    }
+
+    @Test
+    public void user_수정된다(){
+        // given
+        String email = "midas@gmail.com";
+        String name = "midas";
+        String password = "1234";
+        UserEntity userEntity = userRepository.save(UserEntity.builder()
+                        .email(email)
+                        .name(name)
+                        .password(password)
+                        .build());
+
+        Long updateId = userEntity.getId();
+
+        String updateName = "updateMidas";
+        String updatePassword = "12345";
+
+        String url = "http://localhost:" + port + "/api/v1/users/" + updateId;
+
+        UserUpdateRequestDto requestDto = UserUpdateRequestDto.builder()
+                .name(updateName)
+                .password(updatePassword)
+                .build();
+
+        // when
+        restTemplate.put(url, requestDto);
+
+        UserEntity findOne = userRepository.findById(updateId).get();
+
+        // then
+        assertThat(findOne.getName()).isEqualTo(updateName);
+        assertThat(findOne.getPassword()).isEqualTo(updatePassword);
     }
 }

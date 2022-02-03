@@ -30,4 +30,10 @@ public class UserEntity extends BaseTimeEntity {
         this.name = name;
         this.password = password;
     }
+
+    //== 비지니스 로직 ==//
+    public void update(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 }
