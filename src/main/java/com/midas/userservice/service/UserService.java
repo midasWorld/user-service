@@ -2,6 +2,7 @@ package com.midas.userservice.service;
 
 import com.midas.userservice.domain.users.UserEntity;
 import com.midas.userservice.domain.users.UserRepository;
+import com.midas.userservice.exception.users.UserNotFoundException;
 import com.midas.userservice.web.dto.UserResponseDto;
 import com.midas.userservice.web.dto.UserSaveRequestDto;
 import com.midas.userservice.web.dto.UserUpdateRequestDto;
@@ -26,7 +27,7 @@ public class UserService {
     @Transactional
     public Long update(Long id, UserUpdateRequestDto requestDto) {
         UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사원은 존재하지 않습니다. id=" + id));
+                .orElseThrow(() -> new UserNotFoundException("해당 사원은 존재하지 않습니다. id=" + id));
         user.update(requestDto.getName(), requestDto.getPassword());
         return user.getId();
     }
@@ -34,7 +35,7 @@ public class UserService {
     @Transactional
     public void delete(Long id) {
         UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 사원은 존재하지 않습니다. id=" + id));
+                .orElseThrow(() -> new UserNotFoundException("해당 사원은 존재하지 않습니다. id=" + id));
         userRepository.delete(user);
     }
 
@@ -42,5 +43,11 @@ public class UserService {
         return userRepository.findAllDesc().stream()
                 .map(UserResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    public UserResponseDto findById(Long id) {
+        UserEntity findOne = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("해당 사원은 존재하지 않습니다. id=" + id));
+        return new UserResponseDto(findOne);
     }
 }

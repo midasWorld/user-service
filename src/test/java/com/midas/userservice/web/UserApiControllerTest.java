@@ -2,6 +2,7 @@ package com.midas.userservice.web;
 
 import com.midas.userservice.domain.users.UserEntity;
 import com.midas.userservice.domain.users.UserRepository;
+import com.midas.userservice.exception.users.UserNotFoundException;
 import com.midas.userservice.web.dto.UserSaveRequestDto;
 import com.midas.userservice.web.dto.UserUpdateRequestDto;
 import org.junit.jupiter.api.Test;
@@ -103,8 +104,8 @@ class UserApiControllerTest {
 
         // then
         assertThatThrownBy(() -> {
-            userRepository.findById(deleteId).orElseThrow(() -> new IllegalArgumentException("해당 사원은 존재하지 않습니다. id=" + deleteId));
-        }).isInstanceOf(IllegalArgumentException.class)
+            userRepository.findById(deleteId).orElseThrow(() -> new UserNotFoundException("해당 사원은 존재하지 않습니다. id=" + deleteId));
+        }).isInstanceOf(UserNotFoundException.class)
                 .hasMessageContaining("%d", deleteId);
     }
 }

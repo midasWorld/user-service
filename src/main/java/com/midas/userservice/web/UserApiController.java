@@ -34,4 +34,9 @@ public class UserApiController {
     public List<UserResponseDto> findAllDesc() {
         return userService.findAllDesc();
     }
+
+    @GetMapping("/v1/users/{id}")
+    public UserResponseDto findById(@PathVariable Long id) {
+        return userService.findById(id);
+    }
 }
