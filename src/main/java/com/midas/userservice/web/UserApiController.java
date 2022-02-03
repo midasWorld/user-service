@@ -7,6 +7,7 @@ import com.midas.userservice.web.dto.UserUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,7 +17,7 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/v1/users")
-    public Long save(@RequestBody UserSaveRequestDto requestDto) {
+    public Long save(@Valid @RequestBody UserSaveRequestDto requestDto) {
         return userService.save(requestDto);
     }
 
