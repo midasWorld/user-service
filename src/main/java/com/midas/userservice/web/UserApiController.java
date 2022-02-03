@@ -1,9 +1,9 @@
 package com.midas.userservice.web;
 
 import com.midas.userservice.service.UserService;
-import com.midas.userservice.web.dto.UserResponseDto;
-import com.midas.userservice.web.dto.UserSaveRequestDto;
-import com.midas.userservice.web.dto.UserUpdateRequestDto;
+import com.midas.userservice.web.dto.users.UserResponseDto;
+import com.midas.userservice.web.dto.users.UserSaveRequestDto;
+import com.midas.userservice.web.dto.users.UserUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.midas.userservice.web.dto;
+package com.midas.userservice.web.dto.users;
 
 import com.midas.userservice.domain.users.UserEntity;
 import lombok.Builder;
