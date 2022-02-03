@@ -31,6 +31,13 @@ public class UserService {
         return user.getId();
     }
 
+    @Transactional
+    public void delete(Long id) {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사원은 존재하지 않습니다. id=" + id));
+        userRepository.delete(user);
+    }
+
     public List<UserResponseDto> findAllDesc() {
         return userRepository.findAllDesc().stream()
                 .map(UserResponseDto::new)

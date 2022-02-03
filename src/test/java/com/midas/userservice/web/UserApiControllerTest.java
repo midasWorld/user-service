@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserApiControllerTest {
@@ -79,5 +80,31 @@ class UserApiControllerTest {
         // then
         assertThat(findOne.getName()).isEqualTo(updateName);
         assertThat(findOne.getPassword()).isEqualTo(updatePassword);
+    }
+
+    @Test
+    public void user_삭제된다(){
+        // given
+        String email = "midas@gmail.com";
+        String name = "midas";
+        String password = "1234";
+        UserEntity userEntity = userRepository.save(UserEntity.builder()
+                .email(email)
+                .name(name)
+                .password(password)
+                .build());
+
+        Long deleteId = userEntity.getId();
+
+        String url = "http://localhost:" + port + "/api/v1/users/" + deleteId;
+
+        // when
+        restTemplate.delete(url);
+
+        // then
+        assertThatThrownBy(() -> {
+            userRepository.findById(deleteId).orElseThrow(() -> new IllegalArgumentException("해당 사원은 존재하지 않습니다. id=" + deleteId));
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("%d", deleteId);
     }
 }

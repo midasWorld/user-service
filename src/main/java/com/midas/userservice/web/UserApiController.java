@@ -25,6 +25,11 @@ public class UserApiController {
         return userService.update(id, requestDto);
     }
 
+    @DeleteMapping("/v1/users/{id}")
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
+    }
+
     @GetMapping("/v1/users")
     public List<UserResponseDto> findAllDesc() {
         return userService.findAllDesc();
