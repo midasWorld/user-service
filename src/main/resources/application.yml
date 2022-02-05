@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: user-service
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: true
+    defer-datasource-initialization: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver #org.h2.Driver
+    url: ENC(38xlazfNYbHsBr6CBO9/MFqkIMw7mfI8Tb5XB5cJeA8DIcntqNunbQuf0oKqsH6n) #jdbc:h2:mem:testdb
+    username: ENC(86DlKcEDabcTADe939TOcw==)
+    password: ENC(s99J+vsubnkz30RdPiMaVMXIQrseluox)
+  sql:
+    init:
+      mode: always
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
