@@ -23,8 +23,23 @@ spring:
     password: ENC(s99J+vsubnkz30RdPiMaVMXIQrseluox)
   sql:
     init:
-      mode: always
+      mode: never
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
 
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
+
+jwt:
+  expires_sec: 86400
+  refresh_expires_sec: 86400
+  secret: '%^@tw@6VGVa@GtQ0l%VX#r4sWKN3t99E'
+  refresh_secret: 'zlJ*xql#AHarmgwp78f8uPsA$3HnzkcY'
+  subject: auth
+
+bcrypt:
+  salt_rounds: 12

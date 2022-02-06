@@ -1,53 +1,16 @@
 package com.midas.userservice.service;
 
-import com.midas.userservice.domain.users.UserEntity;
-import com.midas.userservice.domain.users.UserRepository;
-import com.midas.userservice.exception.users.UserNotFoundException;
-import com.midas.userservice.web.dto.users.UserResponseDto;
-import com.midas.userservice.web.dto.users.UserSaveRequestDto;
-import com.midas.userservice.web.dto.users.UserUpdateRequestDto;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.midas.userservice.web.dto.auth.RoleResponseDto;
+import com.midas.userservice.web.dto.auth.RoleSaveRequestDto;
+import com.midas.userservice.web.dto.auth.UserResponseDto;
+import com.midas.userservice.web.dto.auth.UserSaveRequestDto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
-@Transactional(readOnly = true)
-@Service
-public class UserService {
-    private final UserRepository userRepository;
-
-    @Transactional
-    public Long save(UserSaveRequestDto requestDto) {
-        return userRepository.save(requestDto.toEntity()).getId();
-    }
-
-    @Transactional
-    public Long update(Long id, UserUpdateRequestDto requestDto) {
-        UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("해당 사원은 존재하지 않습니다. id=" + id));
-        user.update(requestDto.getName(), requestDto.getPassword());
-        return user.getId();
-    }
-
-    @Transactional
-    public void delete(Long id) {
-        UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("해당 사원은 존재하지 않습니다. id=" + id));
-        userRepository.delete(user);
-    }
-
-    public List<UserResponseDto> findAllDesc() {
-        return userRepository.findAllDesc().stream()
-                .map(UserResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
-    public UserResponseDto findById(Long id) {
-        UserEntity findOne = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("해당 사원은 존재하지 않습니다. id=" + id));
-        return new UserResponseDto(findOne);
-    }
+public interface UserService {
+    UserResponseDto saveUser(UserSaveRequestDto requestDto);
+    RoleResponseDto saveRole(RoleSaveRequestDto requestDto);
+    void addRoleToUser(String email, String roleName);
+    UserResponseDto getUserByEmail(String email);
+    List<UserResponseDto> getUsersDESC();
 }

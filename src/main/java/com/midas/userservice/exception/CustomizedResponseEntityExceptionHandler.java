@@ -1,6 +1,6 @@
 package com.midas.userservice.exception;
 
-import com.midas.userservice.exception.users.UserNotFoundException;
+import com.midas.userservice.exception.auth.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

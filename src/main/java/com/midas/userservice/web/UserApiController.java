@@ -1,13 +1,12 @@
 package com.midas.userservice.web;
 
 import com.midas.userservice.service.UserService;
-import com.midas.userservice.web.dto.users.UserResponseDto;
-import com.midas.userservice.web.dto.users.UserSaveRequestDto;
-import com.midas.userservice.web.dto.users.UserUpdateRequestDto;
+import com.midas.userservice.web.dto.auth.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -16,28 +15,28 @@ import java.util.List;
 public class UserApiController {
     private final UserService userService;
 
-    @PostMapping("/v1/users")
-    public Long save(@Valid @RequestBody UserSaveRequestDto requestDto) {
-        return userService.save(requestDto);
+    @GetMapping("/users")
+    public List<UserResponseDto> getUsers() {
+        return userService.getUsersDESC();
     }
 
-    @PutMapping("/v1/users/{id}")
-    public Long update(@PathVariable Long id, @RequestBody UserUpdateRequestDto requestDto) {
-        return userService.update(id, requestDto);
+    @PostMapping("/users")
+    public UserResponseDto saveUser(@RequestBody UserSaveRequestDto requestDto) {
+        return userService.saveUser(requestDto);
     }
 
-    @DeleteMapping("/v1/users/{id}")
-    public void delete(@PathVariable Long id) {
-        userService.delete(id);
+    @PostMapping("/role")
+    public RoleResponseDto saveRole(@RequestBody RoleSaveRequestDto requestDto) {
+        return userService.saveRole(requestDto);
     }
 
-    @GetMapping("/v1/users")
-    public List<UserResponseDto> findAllDesc() {
-        return userService.findAllDesc();
+    @PostMapping("/role/addtouser")
+    public void addRoletoUser(@RequestBody RoleToUserDto requestDto) {
+        userService.addRoleToUser(requestDto.getEmail(), requestDto.getRoleName());
     }
 
-    @GetMapping("/v1/users/{id}")
-    public UserResponseDto findById(@PathVariable Long id) {
-        return userService.findById(id);
-    }
+//    @GetMapping("/role/addtouser")
+//    public void refreshToken(HttpServletRequest request, HttpServletResponse response) {
+//
+//    }
 }
