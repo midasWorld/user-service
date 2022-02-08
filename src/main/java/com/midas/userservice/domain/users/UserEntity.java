@@ -9,6 +9,10 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(
+        name = "unq_user_email",
+        columnNames = "email"
+)})
 @Entity(name = "users")
 public class UserEntity extends BaseTimeEntity {
 
@@ -18,7 +22,7 @@ public class UserEntity extends BaseTimeEntity {
     @Column(length = 50, nullable = false)
     private String email;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false)vcb x
     private String name;
 
     @Column(length = 20, nullable = false)
