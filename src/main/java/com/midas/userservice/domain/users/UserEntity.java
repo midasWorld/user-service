@@ -27,7 +27,7 @@ public class UserEntity extends BaseTimeEntity {
     @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private String encryptedPwd;
 
     @ManyToMany(fetch = FetchType.EAGER)
