@@ -16,6 +16,7 @@ class JasyptConfigTest {
         String password = "password"; // password - ⭐
         
         String jwtSecret = "jwtSecret";
+        String jwtRefreshSecret = "jwtRefreshSecret";
         String jwtExpiresSec = "jwtExpiresSec";
         String jwtSubject = "jwtSubject";
         String bcryptSaltRounds = "bcryptSaltRounds";
@@ -25,6 +26,7 @@ class JasyptConfigTest {
         String encryptUsername = jasyptEncrypt(username);
         String encryptPassword = jasyptEncrypt(password);
         String encryptJwtSecret = jasyptEncrypt(jwtSecret);
+        String encryptJwtRefreshSecret = jasyptEncrypt(jwtRefreshSecret);
         String encryptJwtExpiresSec = jasyptEncrypt(jwtExpiresSec);
         String encryptJwtSubject = jasyptEncrypt(jwtSubject);
         String encryptBcryptSaltRounds = jasyptEncrypt(bcryptSaltRounds);
@@ -33,6 +35,7 @@ class JasyptConfigTest {
         System.out.println("encryptUsername: " + encryptUsername);
         System.out.println("encryptPassword: " + encryptPassword);
         System.out.println("encryptJwtSecret: " + encryptJwtSecret);
+        System.out.println("encryptJwtRefreshSecret: " + encryptJwtRefreshSecret);
         System.out.println("encryptJwtExpiresSec: " + encryptJwtExpiresSec);
         System.out.println("encryptJwtSubject: " + encryptJwtSubject);
         System.out.println("encryptBcryptSaltRounds: " + encryptBcryptSaltRounds);
@@ -41,6 +44,7 @@ class JasyptConfigTest {
         Assertions.assertThat(jasyptDecrypt(encryptUsername)).isEqualTo(username);
         Assertions.assertThat(jasyptDecrypt(encryptPassword)).isEqualTo(password);
         Assertions.assertThat(jasyptDecrypt(encryptJwtSecret)).isEqualTo(jwtSecret);
+        Assertions.assertThat(jasyptDecrypt(encryptJwtRefreshSecret)).isEqualTo(jwtRefreshSecret);
         Assertions.assertThat(jasyptDecrypt(encryptJwtExpiresSec)).isEqualTo(jwtExpiresSec);
         Assertions.assertThat(jasyptDecrypt(encryptJwtSubject)).isEqualTo(jwtSubject);
         Assertions.assertThat(jasyptDecrypt(encryptBcryptSaltRounds)).isEqualTo(bcryptSaltRounds);
