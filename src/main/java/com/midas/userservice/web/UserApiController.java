@@ -1,50 +1,35 @@
 package com.midas.userservice.web;
 
 import com.midas.userservice.service.UserService;
-import com.midas.userservice.web.dto.users.RoleToUserDto;
-import com.midas.userservice.web.dto.users.UserResponseDto;
-import com.midas.userservice.web.dto.users.UserSaveRequestDto;
-import com.midas.userservice.web.dto.users.UserUpdateRequestDto;
+import com.midas.userservice.web.dto.users.*;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
-
-@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api")
 @RestController
 public class UserApiController {
     private final UserService userService;
 
-    @PostMapping("/v1/users")
-    public Long save(@Valid @RequestBody UserSaveRequestDto requestDto) {
-        return userService.saveUser(requestDto);
+    @PostMapping("/signup")
+    public void signUp(@RequestBody SignUpRequestDto requestDto) {
+        userService.signUp(requestDto);
     }
 
-    @PutMapping("/v1/users/{id}")
-    public Long update(@PathVariable Long id, @RequestBody UserUpdateRequestDto requestDto) {
-        return userService.update(id, requestDto);
+    @PostMapping("/signin")
+    public UserResponseDto signIn(@RequestBody SignInReqestDto requestDto) {
+        return userService.signIn(requestDto);
     }
 
-    @DeleteMapping("/v1/users/{id}")
-    public void delete(@PathVariable Long id) {
-        userService.delete(id);
+    @PostMapping("/v1/roles")
+    public void saveRole(@RequestBody RoleSaveRequestDto requestDto) {
+        userService.saveRole(requestDto);
     }
 
-    @GetMapping("/v1/users")
-    public List<UserResponseDto> findAllDesc() {
-        return userService.findAllDesc();
-    }
-
-    @GetMapping("/v1/users/{id}")
-    public UserResponseDto findById(@PathVariable Long id) {
-        return userService.findById(id);
-    }
-
-    @PostMapping("/role/addtouser")
+    @PostMapping("/v1/roles/addtouser")
     public void addRoleToUser(@RequestBody RoleToUserDto requestDto) {
         userService.addRoleToUser(requestDto);
     }

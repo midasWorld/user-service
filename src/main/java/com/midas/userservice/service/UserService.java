@@ -12,9 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Slf4j
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -24,35 +21,14 @@ public class UserService {
     private final RoleRepository roleRepository;
 
     @Transactional
-    public Long saveUser(UserSaveRequestDto requestDto) {
-        return userRepository.save(requestDto.toEntity()).getId();
+    public void signUp(SignUpRequestDto requestDto) {
+        userRepository.save(requestDto.toEntity(requestDto.getPassword()));
     }
 
-    @Transactional
-    public Long update(Long id, UserUpdateRequestDto requestDto) {
-        UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("해당 사원은 존재하지 않습니다. id=" + id));
-        user.update(requestDto.getName(), requestDto.getPassword());
-        return user.getId();
-    }
-
-    @Transactional
-    public void delete(Long id) {
-        UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("해당 사원은 존재하지 않습니다. id=" + id));
-        userRepository.delete(user);
-    }
-
-    public List<UserResponseDto> findAllDesc() {
-        return userRepository.findAllDesc().stream()
-                .map(UserResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
-    public UserResponseDto findById(Long id) {
-        UserEntity findOne = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("해당 사원은 존재하지 않습니다. id=" + id));
-        return new UserResponseDto(findOne);
+    public UserResponseDto signIn(SignInReqestDto requestDto) {
+        UserEntity findUser = userRepository.findByEmail(requestDto.getEmail())
+                .orElseThrow(() -> new UserNotFoundException("해당 사원을 찾을 수 없습니다. email=" + requestDto.getEmail()));
+        return new UserResponseDto(findUser);
     }
 
     @Transactional
