@@ -37,7 +37,6 @@ jasypt:
 jwt:
   expires_sec: ENC(VyvdJg02QRrmsBqRXC0thw==)
   secret: ENC(ZvMv92EK9gIRRheucoeEZm/mw1V7bFoYTP29ToH1AOyyX+GettR9ivZzFoaT/0lV)
-  subject: ENC(oZD65pska0bAkAwzUuI3pA==)
 
 bcrypt:
   salt_rounds: ENC(0QNo9V/kLtdkazaHmeDCJw==)
