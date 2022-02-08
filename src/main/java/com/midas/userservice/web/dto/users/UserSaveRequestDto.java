@@ -31,7 +31,7 @@ public class UserSaveRequestDto {
         return UserEntity.builder()
                 .email(email)
                 .name(name)
-                .password(password)
+                .encryptedPwd(password)
                 .build();
     }
 }

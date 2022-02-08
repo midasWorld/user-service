@@ -26,18 +26,18 @@ public class UserEntity extends BaseTimeEntity {
     private String name;
 
     @Column(length = 20, nullable = false)
-    private String password;
+    private String encryptedPwd;
 
     @Builder
-    public UserEntity(String email, String name, String password) {
+    public UserEntity(String email, String name, String encryptedPwd) {
         this.email = email;
         this.name = name;
-        this.password = password;
+        this.encryptedPwd = encryptedPwd;
     }
 
     //== 비지니스 로직 ==//
-    public void update(String name, String password) {
+    public void update(String name, String encryptedPwd) {
         this.name = name;
-        this.password = password;
+        this.encryptedPwd = encryptedPwd;
     }
 }
