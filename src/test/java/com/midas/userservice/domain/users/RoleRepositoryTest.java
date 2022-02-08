@@ -1,7 +1,5 @@
-package com.midas.userservice.domain.roles;
+package com.midas.userservice.domain.users;
 
-import com.midas.userservice.domain.users.Role;
-import com.midas.userservice.domain.users.RoleRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
