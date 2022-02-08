@@ -25,6 +25,11 @@ spring:
     init:
       mode: always
 
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
