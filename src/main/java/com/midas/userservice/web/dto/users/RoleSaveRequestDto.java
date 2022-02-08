@@ -1,6 +1,6 @@
 package com.midas.userservice.web.dto.users;
 
-import com.midas.userservice.domain.roles.Role;
+import com.midas.userservice.domain.users.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

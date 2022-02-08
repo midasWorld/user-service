@@ -1,7 +1,7 @@
 package com.midas.userservice.service;
 
-import com.midas.userservice.domain.roles.Role;
-import com.midas.userservice.domain.roles.RoleRepository;
+import com.midas.userservice.domain.users.Role;
+import com.midas.userservice.domain.users.RoleRepository;
 import com.midas.userservice.domain.users.UserEntity;
 import com.midas.userservice.domain.users.UserRepository;
 import com.midas.userservice.exception.users.RoleNotFoundException;

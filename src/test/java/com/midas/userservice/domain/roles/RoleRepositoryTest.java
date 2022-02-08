@@ -1,5 +1,7 @@
 package com.midas.userservice.domain.roles;
 
+import com.midas.userservice.domain.users.Role;
+import com.midas.userservice.domain.users.RoleRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 class RoleRepositoryTest {
 
-    @Autowired RoleRepository roleRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     @Test
     public void Role_FindByName_테스트(){

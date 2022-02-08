@@ -1,4 +1,4 @@
-package com.midas.userservice.domain.roles;
+package com.midas.userservice.domain.users;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,7 +1,6 @@
 package com.midas.userservice.domain.users;
 
 import com.midas.userservice.domain.BaseTimeEntity;
-import com.midas.userservice.domain.roles.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
