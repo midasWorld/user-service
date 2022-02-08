@@ -3,10 +3,9 @@ package com.midas.userservice.web;
 import com.midas.userservice.service.UserService;
 import com.midas.userservice.web.dto.users.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -14,22 +13,27 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserApiController {
     private final UserService userService;
 
+    @GetMapping("/users")
+    public List<UserResponseDto> findAllDesc() {
+        return userService.findAllDesc();
+    }
+
     @PostMapping("/signup")
-    public void signUp(@RequestBody SignUpRequestDto requestDto) {
-        userService.signUp(requestDto);
+    public TokenResponseDto signUp(@RequestBody SignUpRequestDto requestDto) {
+        return userService.signUp(requestDto);
     }
 
     @PostMapping("/signin")
-    public UserResponseDto signIn(@RequestBody SignInReqestDto requestDto) {
+    public TokenResponseDto signIn(@RequestBody SignInReqestDto requestDto) {
         return userService.signIn(requestDto);
     }
 
-    @PostMapping("/v1/roles")
+    @PostMapping("/roles")
     public void saveRole(@RequestBody RoleSaveRequestDto requestDto) {
         userService.saveRole(requestDto);
     }
 
-    @PostMapping("/v1/roles/addtouser")
+    @PostMapping("/roles/addtouser")
     public void addRoleToUser(@RequestBody RoleToUserDto requestDto) {
         userService.addRoleToUser(requestDto);
     }
