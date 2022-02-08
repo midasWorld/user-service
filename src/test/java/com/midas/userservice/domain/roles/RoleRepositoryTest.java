@@ -16,11 +16,11 @@ class RoleRepositoryTest {
     public void Role_FindByName_테스트(){
         // given
         Role savedRole = roleRepository.save(Role.builder()
-                .name(RoleType.ADMIN)
+                .name("ADMIN")
                 .build());
 
         // when
-        Role findRole = roleRepository.findByName(RoleType.ADMIN).orElseThrow(() -> new IllegalArgumentException("해당 Role은 존재하지 않습니다."));
+        Role findRole = roleRepository.findByName("ADMIN").orElseThrow(() -> new IllegalArgumentException("해당 Role은 존재하지 않습니다."));
 
         // then
         System.out.println("role-name: " + findRole.getName());

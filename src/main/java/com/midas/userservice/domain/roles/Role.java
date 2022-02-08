@@ -13,11 +13,10 @@ public class Role {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private RoleType name;
+    private String name;
 
     @Builder
-    public Role(RoleType name) {
+    public Role(String name) {
         this.name = name;
     }
 }
