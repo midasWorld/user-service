@@ -1,11 +1,14 @@
 package com.midas.userservice.domain.users;
 
 import com.midas.userservice.domain.BaseTimeEntity;
+import com.midas.userservice.domain.roles.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Getter
 @NoArgsConstructor
@@ -27,6 +30,9 @@ public class UserEntity extends BaseTimeEntity {
 
     @Column(length = 20, nullable = false)
     private String encryptedPwd;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles = new ArrayList<>();
 
     @Builder
     public UserEntity(String email, String name, String encryptedPwd) {

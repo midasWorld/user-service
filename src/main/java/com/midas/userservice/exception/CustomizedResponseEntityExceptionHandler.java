@@ -1,5 +1,6 @@
 package com.midas.userservice.exception;
 
+import com.midas.userservice.exception.users.RoleNotFoundException;
 import com.midas.userservice.exception.users.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,12 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
     @ExceptionHandler(UserNotFoundException.class)
     public final ResponseEntity<Object> handleUserNotFoundException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RoleNotFoundException.class)
+    public final ResponseEntity<Object> handleRoleNotFoundException(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }
