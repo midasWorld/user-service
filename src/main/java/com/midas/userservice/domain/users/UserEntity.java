@@ -22,7 +22,7 @@ public class UserEntity extends BaseTimeEntity {
     @Column(length = 50, nullable = false)
     private String email;
 
-    @Column(length = 50, nullable = false)vcb x
+    @Column(length = 50, nullable = false)
     private String name;
 
     @Column(length = 20, nullable = false)
