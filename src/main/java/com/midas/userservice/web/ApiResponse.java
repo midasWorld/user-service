@@ -25,4 +25,8 @@ public class ApiResponse<T> {
   public static ApiResponse<?> ERROR(String message) {
     return new ApiResponse<>(false, message);
   }
+
+  public static ApiResponse<?> ERROR(ApiError error) {
+    return new ApiResponse<>(false, error);
+  }
 }

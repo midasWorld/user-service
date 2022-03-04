@@ -1,4 +1,4 @@
-package com.midas.userservice.exception;
+package com.midas.userservice.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExceptionResponse {
+public class ApiError {
     private LocalDateTime timestamp;
     private String message;
     private String details;
