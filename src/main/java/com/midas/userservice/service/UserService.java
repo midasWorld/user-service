@@ -4,6 +4,7 @@ import com.midas.userservice.domain.users.*;
 import com.midas.userservice.exception.users.NotFoundException;
 import com.midas.userservice.util.JwtUtil;
 import com.midas.userservice.web.dto.users.*;
+import com.midas.userservice.web.users.dto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

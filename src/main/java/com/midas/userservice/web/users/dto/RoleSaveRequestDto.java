@@ -1,4 +1,4 @@
-package com.midas.userservice.web.dto.users;
+package com.midas.userservice.web.users.dto;
 
 import com.midas.userservice.domain.users.Role;
 import lombok.Builder;

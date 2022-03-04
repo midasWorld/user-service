@@ -1,4 +1,4 @@
-package com.midas.userservice.web.dto.users;
+package com.midas.userservice.web.users.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
