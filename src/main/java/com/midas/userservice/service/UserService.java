@@ -1,8 +1,7 @@
 package com.midas.userservice.service;
 
 import com.midas.userservice.domain.users.*;
-import com.midas.userservice.exception.users.RoleNotFoundException;
-import com.midas.userservice.exception.users.UserNotFoundException;
+import com.midas.userservice.exception.users.NotFoundException;
 import com.midas.userservice.util.JwtUtil;
 import com.midas.userservice.web.dto.users.*;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,7 @@ public class UserService {
         // 사원 권한 등록
         for (RoleSaveRequestDto role : requestDto.getRoles()) {
             Role findRole = roleRepository.findByName(role.getName())
-                    .orElseThrow(() -> new RoleNotFoundException("해당 권한을 찾을 수 없습니다. name=" + role.getName()));
+                    .orElseThrow(() -> new NotFoundException("해당 권한을 찾을 수 없습니다. name=" + role.getName()));
             savedUser.getRoles().add(findRole);
         }
 
@@ -58,7 +57,7 @@ public class UserService {
     @Transactional
     public TokenResponseDto signIn(SignInReqestDto requestDto) {
         UserEntity findUser = userRepository.findByEmail(requestDto.getEmail())
-                .orElseThrow(() -> new UserNotFoundException("해당 사원을 찾을 수 없습니다. email=" + requestDto.getEmail()));
+                .orElseThrow(() -> new NotFoundException("해당 사원을 찾을 수 없습니다. email=" + requestDto.getEmail()));
 
         AuthEntity auth = authRepository.findByUserId(findUser.getId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 사원의 토큰 정보를 찾을 수 없습니다. id=" + findUser.getId()));
@@ -90,10 +89,10 @@ public class UserService {
     @Transactional
     public void addRoleToUser(RoleToUserDto requestDto) {
         UserEntity user = userRepository.findByEmail(requestDto.getEmail())
-                .orElseThrow(() -> new UserNotFoundException("해당 사원을 찾을 수 없습니다. email=" + requestDto.getEmail()));
+                .orElseThrow(() -> new NotFoundException("해당 사원을 찾을 수 없습니다. email=" + requestDto.getEmail()));
         for (RoleSaveRequestDto role : requestDto.getRoles()) {
             Role findRole = roleRepository.findByName(role.getName())
-                    .orElseThrow(() -> new RoleNotFoundException("해당 권한을 찾을 수 없습니다. name=" + role.getName()));
+                    .orElseThrow(() -> new NotFoundException("해당 권한을 찾을 수 없습니다. name=" + role.getName()));
             user.getRoles().add(findRole);
         }
     }
