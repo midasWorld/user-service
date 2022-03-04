@@ -97,9 +97,7 @@ public class UserService {
         }
     }
 
-    public List<UserResponseDto> findAllDesc() {
-        return userRepository.findAllDesc().stream()
-                .map(UserResponseDto::new)
-                .collect(Collectors.toList());
+    public List<UserEntity> findAllDesc() {
+        return userRepository.findAllDesc();
     }
 }

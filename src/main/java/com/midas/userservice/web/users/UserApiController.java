@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -16,7 +17,10 @@ public class UserApiController {
 
     @GetMapping("/users")
     public ApiResponse<List<UserResponseDto>> findAllDesc() {
-        return ApiResponse.OK(userService.findAllDesc());
+        return ApiResponse.OK(userService.findAllDesc().stream()
+                .map(UserResponseDto::new)
+                .collect(Collectors.toList())
+        );
     }
 
     @PostMapping("/signup")
