@@ -14,15 +14,15 @@ public class ApiResponse<T> {
     this.response = response;
   }
 
-  public ApiResponse<T> OK(T response) {
+  public static <T> ApiResponse<T> OK(T response) {
     return new ApiResponse<>(true, response);
   }
 
-  public ApiResponse<?> ERROR(Throwable throwable) {
+  public static ApiResponse<?> ERROR(Throwable throwable) {
     return new ApiResponse<>(false, throwable.getMessage());
   }
 
-  public ApiResponse<?> ERROR(String message) {
+  public static ApiResponse<?> ERROR(String message) {
     return new ApiResponse<>(false, message);
   }
 }
