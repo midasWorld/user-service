@@ -14,18 +14,18 @@ public class UserApiController {
     private final UserService userService;
 
     @GetMapping("/users")
-    public List<UserResponseDto> findAllDesc() {
-        return userService.findAllDesc();
+    public ApiResponse<List<UserResponseDto>> findAllDesc() {
+        return ApiResponse.OK(userService.findAllDesc());
     }
 
     @PostMapping("/signup")
-    public TokenResponseDto signUp(@RequestBody SignUpRequestDto requestDto) {
-        return userService.signUp(requestDto);
+    public ApiResponse<TokenResponseDto> signUp(@RequestBody SignUpRequestDto requestDto) {
+        return ApiResponse.OK(userService.signUp(requestDto));
     }
 
     @PostMapping("/signin")
-    public TokenResponseDto signIn(@RequestBody SignInReqestDto requestDto) {
-        return userService.signIn(requestDto);
+    public ApiResponse<TokenResponseDto> signIn(@RequestBody SignInReqestDto requestDto) {
+        return ApiResponse.OK(userService.signIn(requestDto));
     }
 
     @PostMapping("/roles")
