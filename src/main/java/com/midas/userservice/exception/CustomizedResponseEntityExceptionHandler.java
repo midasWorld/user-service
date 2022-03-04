@@ -1,7 +1,9 @@
 package com.midas.userservice.exception;
 
-import com.midas.userservice.exception.users.RoleNotFoundException;
-import com.midas.userservice.exception.users.UserNotFoundException;
+import com.midas.userservice.exception.users.NotFoundException;
+import com.midas.userservice.web.ApiError;
+import com.midas.userservice.web.ApiResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,31 +16,33 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @RestController
 @ControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public final ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    public final ResponseEntity<Object> handleUserNotFoundException(Exception ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(RoleNotFoundException.class)
-    public final ResponseEntity<Object> handleRoleNotFoundException(Exception ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
-        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    private ResponseEntity<Object> newResponse(Throwable throwable, HttpStatus status, WebRequest request) {
+        ApiError error = new ApiError(LocalDateTime.now(), throwable.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ApiResponse.ERROR(error), status);
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), "Validation Failed", ex.getBindingResult().toString());
-        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return newResponse(e, HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<?> handleAllException(Exception e, WebRequest request) {
+        log.error("Unexpected exception occurred: {}", e.getMessage(), e);
+        return newResponse(e, HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
+
+    @ExceptionHandler(ServiceRuntimeException.class)
+    public final ResponseEntity<?> handleNotFoundException(ServiceRuntimeException e, WebRequest request) {
+        if (e instanceof NotFoundException)
+            return newResponse(e, HttpStatus.NOT_FOUND, request);
+
+        log.warn("Unexpected service exception occurred: {}", e.getMessage(), e);
+        return newResponse(e, HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 }
